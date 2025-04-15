@@ -79,14 +79,15 @@ public:
     }
 
     /// Добавление одного нового элемента в конец массива
-    /// T val - 
+    /// T val - элемент
     void push_back(T val)
     {
         resize(m_size + 1);
         m_data[m_size - 1] = val;
     }
 
-    /// 
+    /// Добавление одного нового элемента в начало массива
+    /// T val - элемент 
     void push_front(T val)
     {
         size_t tsize = size();
@@ -105,7 +106,7 @@ public:
         delete[] temp;
     }
 
-    /// 
+    /// Удаление одного элемента из конца массива  
     void pop_back()
     {
         if (m_size > 0)
@@ -114,7 +115,7 @@ public:
         }
     }
 
-    /// 
+    /// Удаление одного элемента из начала массива
     void pop_front()
     {
         if (m_size > 0)
