@@ -20,10 +20,14 @@ void test()
 	assert(arr_4.size() == 4);
 
 	// тесты для оператора присваивания копированием
-	dynamic_array<int> arr_33(4);
-	dynamic_array<int> arr_43 = arr_33;
-	assert(arr_33.size() == 4);
-	assert(arr_43.size() == 4);
+	dynamic_array<int> arr_13(4);
+	dynamic_array<int> arr_14 = arr_13;
+	assert(arr_13.size() == 4);
+	assert(arr_14.size() == 4);
+
+	dynamic_array<int> arr_431 = arr_431; // проверка на самокопирование
+	assert(arr_431.size() == 0);
+
 
 	// тесты для конструктора перемещения
 	dynamic_array<int> arr_31(4);
@@ -36,6 +40,9 @@ void test()
 	dynamic_array<int> arr_42 = move(arr_32);
 	assert(arr_31.size() == 0);
 	assert(arr_41.size() == 4);
+	dynamic_array<int> arr_44 = move(arr_44);
+	assert(arr_44.size() == 0);
+
 
 	// тесты для проверки на добавление элемента в конец массива
 	dynamic_array<int> arr_5(3);
@@ -109,4 +116,16 @@ void test()
 	assert(arr_10.size() == 11);
 	arr_10.resize(4);
 	assert(arr_10.size() == 4);
+
+	// тест на проверку бросания исключений для оператора []
+	dynamic_array<int> arr_45(5);
+	try // проверка получения элемента с вершины стека
+	{
+		arr_45[6];
+		assert(false);
+	}
+	catch (const out_of_range&)
+	{
+
+	}
 }

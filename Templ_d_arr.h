@@ -45,11 +45,16 @@ public:
     /// const dynamic_array<T>& a - массив
     dynamic_array<T>& operator =(const dynamic_array<T>& a)
     {
-        return dynamic_array(a);
+        if (this != &a) // проверка на самокопирование
+        {
+            return dynamic_array(a);
+        }
+        return *this;
     }
 
     ///  онструктор перемещени€
-    /// const dynamic_array<T>& a - массив
+    /// ѕеремещает элементы со старого массива в новый, удал€€ старый
+    /// dynamic_array<T>&& a - массив
     dynamic_array(dynamic_array<T>&& a)
     {
         m_size = a.m_size;
@@ -66,7 +71,11 @@ public:
     /// ќператор присваивани€ перемещением
     dynamic_array<T>& operator =(dynamic_array<T>&& a)
     {
-        return dynamic_array(a);
+        if (this != &a) // проверка на самокопирование
+        {
+            return dynamic_array(a);
+        }
+        return *this;
     }
 
     ///  онструктор с параметрами, который создает массив заданного размера
@@ -161,8 +170,9 @@ public:
     }
 
     /// ”даление одного элемента из начала массива
-    void pop_front()
+    T pop_front()
     {
+        T elem = m_data[0];
         if (m_size > 0)
         {
             if (m_size > 1)
@@ -175,6 +185,7 @@ public:
             }
             resize(m_size - 1);
         }
+        return elem;
     }
 
     /// ”даление одного элемента из массива по индексу
@@ -215,9 +226,14 @@ public:
     }
 
     /// ѕерегрузка оператора [] дл€ доступа к элементам массива дл€ чтени€, изменени€
+    /// проверка индекса
     /// size_t i - индекс
     T& operator[] (size_t i) const
     {
+        if (i >= size())
+        {
+            throw out_of_range("»ндекс за пределами массива");
+        }
         return m_data[i];
     }
 };
